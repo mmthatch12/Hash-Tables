@@ -77,7 +77,13 @@ class HashTable:
         if self.retrieve(key) is None:
             print("Warning: the key is not found")
         else:
-            self.storage[self.retrieve(key)].value = None 
+            node = self.storage[self._hash_mod(key)]
+            while node:
+                if node.key == key:
+                    node.value = None
+                    break
+                else:
+                    node = node.next
 
 
     def retrieve(self, key):
