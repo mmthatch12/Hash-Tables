@@ -50,12 +50,7 @@ class HashTable:
         Hash collisions should be handled with Linked List Chaining.
 
         Fill this in.
-        '''
-        # if storage[hashedKey] = None:
-            # storage[hashedKey] = LinkedPair(key, value)
-        
-        # 
-        #    
+        '''  
         if self.storage[self._hash_mod(key)] is None:
             self.storage[self._hash_mod(key)] = LinkedPair(key, value)
         else:
@@ -79,9 +74,10 @@ class HashTable:
         Fill this in.
         '''
 
-        if self.storage[self._hash_mod(key)] is None:
+        if self.retrieve(key) is None:
             print("Warning: the key is not found")
-        self.storage[self._hash_mod(key)] = LinkedPair(key, None)
+        else:
+            self.storage[self.retrieve(key)].value = None 
 
 
     def retrieve(self, key):
