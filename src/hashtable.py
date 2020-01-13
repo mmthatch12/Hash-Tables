@@ -51,9 +51,24 @@ class HashTable:
 
         Fill this in.
         '''
-        # if self.storage[self._hash_mod(key)] is not None:
-
-        self.storage[self._hash_mod(key)] = LinkedPair(key, value)
+        # if storage[hashedKey] = None:
+            # storage[hashedKey] = LinkedPair(key, value)
+        
+        # 
+        #    
+        if self.storage[self._hash_mod(key)] is None:
+            self.storage[self._hash_mod(key)] = LinkedPair(key, value)
+        else:
+            node = self.storage[self._hash_mod(key)]
+            while node:
+                if node.key == key:
+                    node.value = value
+                    break
+                elif node.next is None:
+                    node.next = LinkedPair(key, value)
+                    break
+                else:
+                    node  = node.next
 
     def remove(self, key):
         '''
@@ -64,7 +79,9 @@ class HashTable:
         Fill this in.
         '''
 
-        pass
+        if self.storage[self._hash_mod(key)] is None:
+            print("Warning: the key is not found")
+        self.storage[self._hash_mod(key)] = LinkedPair(key, None)
 
 
     def retrieve(self, key):
@@ -75,10 +92,17 @@ class HashTable:
 
         Fill this in.
         '''
-        if self.storage[self._hash_mod(key)] is None:
-            return None
-        
-        return self.storage[self._hash_mod(key)]
+        if self.storage[self._hash_mod(key)].key == key:
+            return self.storage[self._hash_mod(key)].value
+        else:
+            node = self.storage[self._hash_mod(key)]
+            while node:
+                if node.next.key == key:
+                    return node.next.value
+                elif node.next is None:
+                    return None
+                else:
+                    node = node.next
 
 
     def resize(self):
