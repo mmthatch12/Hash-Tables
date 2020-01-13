@@ -51,9 +51,9 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # if self.storage[self._hash_mod(key)] is not None:
 
-
+        self.storage[self._hash_mod(key)] = LinkedPair(key, value)
 
     def remove(self, key):
         '''
@@ -63,6 +63,7 @@ class HashTable:
 
         Fill this in.
         '''
+
         pass
 
 
@@ -74,7 +75,10 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        if self.storage[self._hash_mod(key)] is None:
+            return None
+        
+        return self.storage[self._hash_mod(key)]
 
 
     def resize(self):
@@ -84,7 +88,12 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        self.capacity *=2
+        new_storage = [None]*self.capacity
+        for i in range(self.capacity):
+            new_storage[i]=self.storage[i]
+        self.storage = new_storage
+
 
 
 

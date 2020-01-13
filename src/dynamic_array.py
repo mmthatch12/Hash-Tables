@@ -33,5 +33,8 @@ class DynamicArray:
     
     def add_to_front(self, value):
         self.insert(0, value)
+        
 
-
+d = DynamicArray()
+d.insert(0,10)
+print(d.storage[1])
