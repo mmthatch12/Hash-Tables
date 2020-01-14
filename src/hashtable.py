@@ -73,17 +73,29 @@ class HashTable:
 
         Fill this in.
         '''
-
-        if self.retrieve(key) is None:
+        ind = self._hash_mod(key)
+        if not self.storage[ind]:
             print("Warning: the key is not found")
-        else:
-            node = self.storage[self._hash_mod(key)]
-            while node:
-                if node.key == key:
-                    node.value = None
+            return
+        
+        node = self.storage[ind]
+        previous_node = None
+        while node:
+            if node.key == key:
+                if previous_node:
+                    previous_node.next = node.next
                     break
                 else:
-                    node = node.next
+                    self.storage[ind] = node.next
+                    break
+                # temp = node
+                # return temp.value
+            elif node.next:
+                previous_node = node
+                node = node.next
+            else:
+                print("Warning: the key is not found")
+                return
 
 
     def retrieve(self, key):
@@ -94,13 +106,15 @@ class HashTable:
 
         Fill this in.
         '''
-        if self.storage[self._hash_mod(key)].key == key:
-            return self.storage[self._hash_mod(key)].value
+        if self.storage[self._hash_mod(key)] is None:
+            return None
+        # if self.storage[self._hash_mod(key)].key == key:
+        #     return self.storage[self._hash_mod(key)].value
         else:
             node = self.storage[self._hash_mod(key)]
             while node:
-                if node.next.key == key:
-                    return node.next.value
+                if node.key == key:
+                    return node.value
                 elif node.next is None:
                     return None
                 else:
@@ -114,12 +128,16 @@ class HashTable:
 
         Fill this in.
         '''
-        self.capacity *=2
-        new_storage = [None]*self.capacity
-        for i in range(self.capacity):
-            new_storage[i]=self.storage[i]
-        self.storage = new_storage
-
+        temp_list = []
+        for i in self.storage:
+            node = i
+            while node:
+                temp_list.append([node.key, node.value])
+                node = node.next
+        self.capacity = 2*self.capacity
+        self.storage = [None]*self.capacity
+        for i in temp_list:
+            self.insert(i[0], i[1])
 
 
 
