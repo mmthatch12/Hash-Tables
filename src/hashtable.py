@@ -108,8 +108,6 @@ class HashTable:
         '''
         if self.storage[self._hash_mod(key)] is None:
             return None
-        # if self.storage[self._hash_mod(key)].key == key:
-        #     return self.storage[self._hash_mod(key)].value
         else:
             node = self.storage[self._hash_mod(key)]
             while node:
@@ -162,7 +160,7 @@ if __name__ == "__main__":
 
     print(f"\nResized from {old_capacity} to {new_capacity}.\n")
 
-    # Test if data intact after resizing
+    # Test if data intact after resizing 
     print(ht.retrieve("line_1"))
     print(ht.retrieve("line_2"))
     print(ht.retrieve("line_3"))
