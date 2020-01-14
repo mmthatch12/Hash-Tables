@@ -56,7 +56,7 @@ class HashTable:
         else:
             node = self.storage[self._hash_mod(key)]
             while node:
-                if node.key == key:
+                if node.key is key:
                     node.value = value
                     break
                 elif node.next is None:
@@ -73,6 +73,7 @@ class HashTable:
 
         Fill this in.
         '''
+
         ind = self._hash_mod(key)
         if not self.storage[ind]:
             print("Warning: the key is not found")
@@ -88,8 +89,6 @@ class HashTable:
                 else:
                     self.storage[ind] = node.next
                     break
-                # temp = node
-                # return temp.value
             elif node.next:
                 previous_node = node
                 node = node.next
@@ -106,6 +105,7 @@ class HashTable:
 
         Fill this in.
         '''
+        
         if self.storage[self._hash_mod(key)] is None:
             return None
         else:
@@ -116,7 +116,7 @@ class HashTable:
                 elif node.next is None:
                     return None
                 else:
-                    node = node.next
+                    node = node.next 
 
 
     def resize(self):
